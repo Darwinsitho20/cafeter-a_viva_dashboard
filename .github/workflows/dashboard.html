@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Cafetería Viva</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: 28px; }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .metric {
+      font-size: 32px;
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .label {
+      font-size: 14px;
+      color: #888;
+    }
+    canvas { max-width: 100%; height: auto !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dashboard de Campaña - Cafetería Viva</h1>
+    <p>Estadísticas de escaneos QR y NFC</p>
+  </header>
+
+  <div class="container">
+    <!-- Métricas -->
+    <div class="card">
+      <div class="metric">320</div>
+      <div class="label">Total de escaneos</div>
+    </div>
+    <div class="card">
+      <div class="metric">250</div>
+      <div class="label">Dispositivos únicos</div>
+    </div>
+    <div class="card">
+      <div class="metric">12:00 PM</div>
+      <div class="label">Hora pico de escaneos</div>
+    </div>
+
+    <!-- Gráfico de barras -->
+    <div class="card">
+      <h3>Escaneos por día</h3>
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <!-- Gráfico de pastel -->
+    <div class="card">
+      <h3>Ubicación de escaneos</h3>
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Gráfico de barras (escaneos por día)
+    const ctxBar = document.getElementById('barChart');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+        datasets: [{
+          label: 'Escaneos',
+          data: [30, 45, 60, 55, 70, 40, 20],
+          backgroundColor: '#3498db'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Gráfico de pastel (ubicación de escaneos)
+    const ctxPie = document.getElementById('pieChart');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Biblioteca', 'Cafetería', 'Entrada'],
+        datasets: [{
+          label: 'Escaneos',
+          data: [128, 112, 80],
+          backgroundColor: ['#e74c3c', '#2ecc71', '#f1c40f']
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Póster — Cafetería Viva (QR + NFC)</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --card-border:#e6e6e6;
+    --text:#111;
+    --muted:#555;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+
+  /* Poster container centered on page */
+  .poster-wrap{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+  }
+
+  /* Poster content (portrait) */
+  .poster{
+    width: 800px;              /* ancho para pantalla/impresión; ajustar si quieres */
+    max-width:calc(100% - 48px);
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 36px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 22px;
+  }
+
+  h1{
+    margin:0;
+    font-size:36px;
+    letter-spacing:0.6px;
+  }
+  p.lead{
+    margin:0;
+    font-size:16px;
+    color:var(--muted);
+    text-align:center;
+    max-width:86%;
+  }
+
+  /* QR block */
+  .qr-block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .qr-img{
+    width: 420px;      /* tamaño del QR en el póster - ajustar para impresión  */
+    height: 420px;
+    box-sizing:border-box;
+    border: 8px solid #fff;
+    background: #fff;
+    display:block;
+  }
+
+  /* NFC icon + text */
+  .nfc{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:18px;
+    color:var(--text);
+  }
+  .nfc svg{ width:48px; height:48px; flex:0 0 48px; }
+
+  .footer{
+    margin-top:18px;
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  /* Print friendly: A4 portrait */
+  @media print{
+    body{ background: white; }
+    .poster{ box-shadow:none; border: none; width:210mm; height:297mm; padding:28mm; border-radius:0; }
+    .qr-img{ width:140mm; height:140mm; } /* ajustar en mm si se desea */
+  }
+
+  /* Mobile smaller poster */
+  @media(max-width:420px){
+    .poster{ padding:18px; gap:12px; }
+    h1{ font-size:22px; }
+    .qr-img{ width:260px; height:260px; }
+  }
+</style>
+</head>
+<body>
+  <div class="poster-wrap">
+    <article class="poster" role="article" aria-label="Póster Cafetería Viva — QR y NFC">
+      <header>
+        <h1>CAFETERÍA VIVA</h1>
+        <p class="lead">Escanea el código QR o acerca tu móvil (NFC) para ver el menú, pedir turno y obtener tu cupón.</p>
+      </header>
+
+      <section class="qr-block" aria-label="Código QR">
+        <!-- QR centrado: apunta a la URL que indicaste -->
+        <img class="qr-img"
+             alt="Código QR - Cafetería Viva"
+             src="https://api.qrserver.com/v1/create-qr-code/?size=800x800&data=https%3A%2F%2Fdarwinsitho20.github.io%2Fcafeter-a_viva%2F"
+             decoding="async" />
+
+        <!-- Enlace directo por si lo abren desde laptop -->
+        <a href="https://darwinsitho20.github.io/cafeter-a_viva/" target="_blank" rel="noopener" style="text-decoration:none; color:var(--text); font-weight:600;">
+          Abrir sitio (clic aquí)
+        </a>
+      </section>
+
+      <section class="nfc" aria-label="NFC">
+        <!-- Icono NFC (inline SVG) -->
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 7C4 5.34315 5.34315 4 7 4H9C10.6569 4 12 5.34315 12 7V9" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 17C20 18.6569 18.6569 20 17 20H15C13.3431 20 12 18.6569 12 17V15" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 20C5.34315 20 4 18.6569 4 17V15C4 13.3431 5.34315 12 7 12H9C10.6569 12 12 13.3431 12 15V17" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 4C18.6569 4 20 5.34315 20 7V9C20 10.6569 18.6569 12 17 12H15C13.3431 12 12 10.6569 12 9V7" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="1.2" fill="#111"/>
+        </svg>
+
+        <div>
+          <div style="font-weight:700;">Toca o acerca tu teléfono (NFC)</div>
+          <div style="font-size:13px; color:var(--muted);">La etiqueta NFC redirige a la misma página del QR.</div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Campaña: Cafetería Viva — QR dinámico / Etiqueta NFC programada con la URL del micrositio.
+        <div style="margin-top:6px; font-size:12px; color:var(--muted);">
+          Nota: para que el NFC funcione debes programar una etiqueta/pegatina NDEF con la URL: <br>
+          <strong>https://darwinsitho20.github.io/cafeter-a_viva/</strong>
+        </div>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
